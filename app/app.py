@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_restful import reqparse, abort, Api, Resource
 import pickle
 import numpy as np
+import json
 from predict_boost import predict
 app = Flask(__name__)
 api = Api(app)
@@ -16,11 +17,10 @@ class MakePrediction(Resource):
     def post():
         args = request.get_json()
         pred = predict(args)
-        result = jsonify ({"result": pred})
+        res = map(int, pred)
+        result = jsonify (json.dumps({"result": list(res)}))
         return result
 
-
-api.add_resource(PredictBoost, '/predict')
-
+api.add_resource(MakePrediction, '/predict')
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
