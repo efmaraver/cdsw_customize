@@ -1,0 +1,6 @@
+install.packages('tidyverse')
+install.packages('caret')
+install.packages('devtools')
+install.packages('xgboost', dependencies=TRUE)
+install.packages('jsonlite')
+install.packages('forecast')
